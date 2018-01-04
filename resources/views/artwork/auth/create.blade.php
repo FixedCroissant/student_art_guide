@@ -20,7 +20,7 @@
 								Country of Origin:
 							</td>
 							<td>
-								{!! Form::text('CountryOfOrigin',null,['class'=>'required']) !!}
+								{!! Form::select('CountryOfOrigin',$countries,['class'=>'required']) !!}
 							</td>
 						</tr>
 
@@ -29,7 +29,7 @@
 								Additional Information:
 							</td>
 							<td>
-								{!! Form::text('artworkAdditionalInformation',null)  !!}
+								{!! Form::textarea('artworkAdditionalInformation',null)  !!}
 							</td>
 						</tr>
 						<tr>
