@@ -12,7 +12,7 @@
 								Name:
 							</td>
 							<td>
-									{!!  Form::text('Name',null,['class'=>'required']) !!}
+									{!!  Form::text('name',null,['class'=>'required']) !!}
 							</td>
 						</tr>
 						<tr>

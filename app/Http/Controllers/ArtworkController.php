@@ -15,18 +15,18 @@ class ArtworkController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
 		//No ID fullfilled.
-		if(empty(Request::input('id')))
+		if(empty($request->input('id')))
 		{
 				return view('artwork.index');
 		}
 		else
 			{
 				//Go to show page.
-				$artID = Request::input('id');
-				$artInformation = Art::find(Request::get('id'));
+				$artID = $request->input('id');
+				$artInformation = Art::find($request->get('id'));
 
 				return view('artwork.show')->with('artInformation',$artInformation);
 			}
@@ -102,11 +102,18 @@ class ArtworkController extends Controller {
 	{
 		//Validation
 		$validatedData = $request->validate([
-			 'name' => 'required',
-	 ]);
+			'name' => 'required',
+		]);
+		$piece = new Art();
+
+		$piece->nameOfArtPiece = $request->name;
+		$piece->country_of_origin = $request->CountryOfOrigin;
+		$piece->additionalInformation = $request->artworkAdditionalInformation;
+
+		$piece->save();
 
 	 	//The Artwork is valid
-		return dd('lets create art!');
+		return redirect('/');
 	}
 
 	/**
