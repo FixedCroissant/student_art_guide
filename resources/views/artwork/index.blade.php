@@ -11,7 +11,7 @@
 				padding: 0;
 				width: 100%;
 				height: 100%;
-				color: #B0BEC5;
+				/*color: #B0BEC5;*/
 				display: table;
 				font-weight: 100;
 				font-family: 'Lato';
@@ -40,14 +40,15 @@
 				margin:10px;
 			}
 			.button, #input{
-				border:1px solid #B0BEC5;
-				color: #B0BEC5;
+				border:1px solid #000000;
+				color: #000000;
 				border-radius: 5px;
 				height: 3em;
 				display:inline-block;
 				margin: 2px;
 				line-height:3em;
 				text-align:center;
+				font-size:20pt;
 			}
 			.button{
 				width: 3em;
@@ -60,36 +61,34 @@
 	</head>
 	<body>
 		<div class="container">
-			<div class="content">
-				<div class="title">Enter Artwork Number:</div>
-				<div id="numpad">
-					<div>
-						<div class="button num">1</div>
-						<div class="button num">2</div>
-						<div class="button num">3</div>
-					</div>
-					<div>
-						<div class="button num">4</div>
-						<div class="button num">5</div>
-						<div class="button num">6</div>
-					</div>
-					<div>
-						<div class="button num">7</div>
-						<div class="button num">8</div>
-						<div class="button num">9</div>
-					</div>
-					<div>
-						<div class="button" id="backspace">Bksp</div>
-						<div class="button num">0</div>
-						<div class="button" id="enter">Enter</div>
-					</div>
+			<div class="title">Enter Artwork Number:</div>
+			<div>
+				
+				<form method="get" action="art">
+					<input name="id" id="input">
+				</form>
+				
+			</div>
+			<div id="numpad">
+				<div>
+					<div class="button num">1</div>
+					<div class="button num">2</div>
+					<div class="button num">3</div>
 				</div>
 				<div>
-					{!! Form::open(['url' => ['art'],'method'=>'get']) !!}
-					<input name="id" id="input">
-					{{--{!! Form::number('id',null); !!}
-					{!! Form::submit('Get Information'); !!}--}}
-					{!! Form::close() !!}
+					<div class="button num">4</div>
+					<div class="button num">5</div>
+					<div class="button num">6</div>
+				</div>
+				<div>
+					<div class="button num">7</div>
+					<div class="button num">8</div>
+					<div class="button num">9</div>
+				</div>
+				<div>
+					<div class="button" id="backspace">Bksp</div>
+					<div class="button num">0</div>
+					<div class="button" id="enter">Enter</div>
 				</div>
 			</div>
 		</div>

@@ -48,6 +48,13 @@
 						@else
 										<tr>
 											<td>
+												@foreach($artInformation->files as $image)
+													<img src="{{ url('\\uploads\\' . $artInformation->id . '\\' . $image) }}">
+												@endforeach
+											</td>
+										</tr>
+										<tr>
+											<td>
 												Name:
 											</td>
 											<td>

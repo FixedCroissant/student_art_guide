@@ -5,7 +5,7 @@
 
 		<div class="container">
 			<div class="content">
-				{!! Form::open(['route' => 'art.store']) !!}
+				{!! Form::open(['route' => 'art.store', 'files' => 'true']) !!}
 				<table class="table">
 						<tr>
 							<td>
@@ -32,6 +32,11 @@
 								{!! Form::textarea('artworkAdditionalInformation',null)  !!}
 							</td>
 						</tr>
+
+						<tr>
+							<td> {!! Form::file('images',["accept"=>"image/x-png,image/gif,image/jpeg"]) !!}
+						</tr>
+
 						<tr>
 							<td colspan="2">
 								{!! Form::submit('Add to Database') !!}

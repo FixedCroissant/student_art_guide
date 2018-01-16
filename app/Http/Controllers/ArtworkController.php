@@ -27,6 +27,8 @@ class ArtworkController extends Controller {
 				//Go to show page.
 				$artID = $request->input('id');
 				$artInformation = Art::find($request->get('id'));
+				$files = scandir(public_path().'/uploads/'.$artID.'/');
+				$artInformation->files = array_diff($files, ['..','.']);
 
 				return view('artwork.show')->with('artInformation',$artInformation);
 			}
@@ -111,6 +113,12 @@ class ArtworkController extends Controller {
 		$piece->additionalInformation = $request->artworkAdditionalInformation;
 
 		$piece->save();
+		//uploads files
+		$file = $request->file('images');
+		if($file != null){
+			$name =  $file->getClientOriginalName();
+			$file->move(public_path() . '/uploads/' . $piece->id . "/" , $name);
+		}
 
 	 	//The Artwork is valid
 		return redirect('/');
