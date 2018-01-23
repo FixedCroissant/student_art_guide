@@ -6,11 +6,26 @@
 var button = [];
 var frm;
 var enteredNum = " ";
+constrain(enteredNum.length,0,3);
 var spac = 150;
+var formInput;
+var submit;
 
 function setup() {
-  createCanvas(spac*5,spac*5);
+  createCanvas(spac*5,spac*6);
+    
   frm = createElement('form','this sends to the back-end');
+  frm.attribute('action',"/back_end.php");  // i need the info for this
+  frm.attribute('target', "_self");
+
+  formInput = createInput();  
+  formInput.value("");  //store entered number in the input
+  frm.child(formInput);  // add the input for the  form
+  
+  submit = createInput('See Art');
+  submit.attribute('type',"submit");  //it is type submit
+  submit.position(spac*2,spac*5);  //move it below the 0 button
+  frm.child(submit);  //make it a child of form
   
   background(255);
     
@@ -38,7 +53,6 @@ function setup() {
   
 }
 
-
 function draw() {
     fill(0);    
     textFont('Serif',20);
@@ -62,4 +76,22 @@ function changeNum() {
 3.  HTML Form
 4.  Color
 5.  Animation
+    a.  do something with the text ARTS NCSU
+    b.  background abstract w/ ncsu colors
+        i. circles that fade in and out
+        ii. stripes like the book
+    c.  background images
+        i.  pics from the webpage
+        ii. student art photos selected at random
+        
+    
+    
+
+Questions
+
+1.  How do I import the right fonts
+2.  how do I make the buttons bigger
+3.  how can I test the form
+4.  how do I isolate the submit
+
  */
