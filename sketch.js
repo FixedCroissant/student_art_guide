@@ -10,6 +10,7 @@ var header;
 var spac = 150;
 var formInput;
 var submit;
+var backspace;
 
 function setup() {
   createCanvas(spac*5,spac*6);
@@ -33,7 +34,7 @@ function setup() {
   
   background(255);
     
-  for(i=0;i<10;i++){
+  for(i=0;i<11;i++){
        button[i] = createButton(i);
        button[i].mousePressed(changeNum);
        button[i].class('buttons');
@@ -50,6 +51,13 @@ function setup() {
   button[6].position(spac*3,spac*2);
   button[9].position(spac*3,spac*3);
   button[0].position(spac*2,spac*4);
+ 
+
+  backspace = createButton("←");
+  backspace.position(spac*3,spac*4);
+  backspace.mousePressed(back);
+  backspace.class('buttons');
+    
   
    
   
@@ -77,6 +85,10 @@ function changeNum() {
 function sendNumber() {
    formInput.value(enteredNum);
     //console.log(enteredNum);
+}
+
+function back() {
+    enteredNum = enteredNum.substr(0,enteredNum.length-1);
 }
 /* Checklist
 
