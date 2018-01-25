@@ -58,16 +58,16 @@ function setup() {
   backspace.mousePressed(back);
   backspace.class('buttons');
     
-  
+  header = createP('Enter the number of the artwork.');
+  header.id('header');
+  header.position(200, 40);
    
   
   
 }
 
 function draw() {  
-    header = createP('Enter the number of the artwork.');
-    header.id('header');
-    header.position(200, 40);
+   
     fill(255);
     noStroke();
     rect(spac,0,spac*3,spac);
