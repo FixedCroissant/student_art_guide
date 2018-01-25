@@ -6,7 +6,7 @@
 var button = [];
 var frm;
 var enteredNum = " ";
-constrain(enteredNum.length,0,3);
+var header; 
 var spac = 150;
 var formInput;
 var submit;
@@ -14,16 +14,20 @@ var submit;
 function setup() {
   createCanvas(spac*5,spac*6);
     
-  frm = createElement('form','this sends to the back-end');
-  frm.attribute('action',"/back_end.php");  // i need the info for this
+  frm = createElement('form');
+  frm.attribute('method',"get");
+  frm.attribute('action',"/");  // i need the info for this
   frm.attribute('target', "_self");
 
-  formInput = createInput();  
-  formInput.value("");  //store entered number in the input
-  frm.child(formInput);  // add the input for the  form
+  formInput = createInput(); //this button gets a value 
+  formInput.attribute('name', "formInput");  //store entered number in the input
+  frm.child(formInput);
+  formInput.hide();// add the input for the  form
   
   submit = createInput('See Art');
-  submit.attribute('type',"submit");  //it is type submit
+  submit.id('submit');
+  submit.attribute('type',"submit");
+  submit.mousePressed(sendNumber);//it is type submit
   submit.position(spac*2,spac*5);  //move it below the 0 button
   frm.child(submit);  //make it a child of form
   
@@ -32,8 +36,7 @@ function setup() {
   for(i=0;i<10;i++){
        button[i] = createButton(i);
        button[i].mousePressed(changeNum);
-       button[i].style("color:#FFFFFF; border-color:#4156A1; background-color:#4156A1; border-width:30px; border-height:30px; border-radius:5px; font-family: GlyphaLight; font-size: 16px;");
-                       //using ncsu branding colors
+       button[i].class('buttons');
        button[i].value = i;
   }
  
@@ -53,22 +56,28 @@ function setup() {
   
 }
 
-function draw() {
-    fill(0);    
-    textFont('Serif',20);
-    text("Click on the numpad \nto change the background", 25,25);
+function draw() {  
+    header = createP('Enter the number of the artwork.');
+    header.id('header');
+    header.position(200, 40);
     fill(255);
     noStroke();
     rect(spac,0,spac*3,spac);
     fill(0);
     textAlign(CENTER);
+    textFont('GlyphaRoman',24);
     text(enteredNum, spac*2+spac/2,spac/2);
 }
 
 function changeNum() {
-    enteredNum = enteredNum + this.value;
+    if(enteredNum.length < 4)
+    enteredNum += this.value;
 }
 
+function sendNumber() {
+   formInput.value(enteredNum);
+    //console.log(enteredNum);
+}
 /* Checklist
 
 1.  Styling #427E93
