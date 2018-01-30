@@ -111,7 +111,7 @@ function setup() {
      */
     //add div for backspace.
     div5 =   createElement('div');
-    div5.class('col-md-3 col-md-offset-5 col-sm-3 col-sm-offset-5');
+    div5.class('col-md-12 col-sm-12 center');
 
     //backspace
     backspace = createButton("←");

@@ -13,10 +13,18 @@
 											Please try {{link_to_route('homepage','again?') }}
 										</p>
 						@else
-										@foreach($artInformation->files as $image)
-											<img class="img-thumbnail" src="{{asset('uploads').'/'. $artInformation->id .'/'.$image}}">
-										@endforeach
-
+										<!--If there is an image-->
+										@if(!is_null($artInformation->files))
+											@foreach($artInformation->files as $image)
+												<img class="img-thumbnail" src="{{asset('uploads').'/'. $artInformation->id .'/'.$image}}">
+											@endforeach
+											@else
+											<tr>
+												<td colspan="2">
+													No image provided.
+												</td>
+											</tr>
+										@endif
 										<tr>
 											<td>
 												Name:
