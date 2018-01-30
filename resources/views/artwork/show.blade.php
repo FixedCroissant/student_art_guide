@@ -1,58 +1,22 @@
-<html>
-	<head>
-		<title>Artwork Information Request</title>
+@extends('layouts.app')
+@section('content')
 
-		<link href='//fonts.googleapis.com/css?family=Lato:200' rel='stylesheet' type='text/css'>
+	<div class="row">
 
-		<style>
-			body {
-				margin: 0;
-				padding: 0;
-				width: 100%;
-				height: 100%;
-				color: #000000;
-				display: table;
-				font-weight: 200;
-				font-family: 'Lato';
-			}
+		<div class="col-md-12">
 
-			.container {
-				text-align: center;
-				display: table-cell;
-				vertical-align: middle;
-			}
-
-			.content {
-				text-align: center;
-				display: inline-block;
-			}
-
-			.title {
-				font-size: 96px;
-				margin-bottom: 40px;
-			}
-
-			.quote {
-				font-size: 24px;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<div class="content">
-				<table class="table">
+				<table class="table table-responsive">
 						@if(is_null($artInformation))
 										<p>
 											No art found for this number.
+											<br/>
+											Please try {{link_to_route('homepage','again?') }}
 										</p>
 						@else
-										<tr>
-											<td>
-												@foreach($artInformation->files as $image)
-													<img src="{{ url('\\uploads\\' . $artInformation->id . '\\' . $image) }}">
-												@endforeach
-											</td>
-										</tr>
+										@foreach($artInformation->files as $image)
+											<img class="img-thumbnail" src="{{asset('uploads').'/'. $artInformation->id .'/'.$image}}">
+										@endforeach
+
 										<tr>
 											<td>
 												Name:
@@ -92,7 +56,7 @@
 										</tr>
 						@endif
 				</table>
-			</div>
 		</div>
-	</body>
-</html>
+	</div>
+@stop
+

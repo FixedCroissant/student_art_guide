@@ -87,8 +87,11 @@
 
                         </div>
         </div>
+        <div class="container">
 
         @yield('content')
+
+        </div>
     </div>
 
     <!-- Scripts -->

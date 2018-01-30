@@ -2,9 +2,16 @@
 	<head>
 		<title>Artwork Information Request</title>
   		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
 		<link href='//fonts.googleapis.com/css?family=Lato:100' rel='stylesheet' type='text/css'>
-
+		<script language="javascript" type="text/javascript" src="js/p5.js"></script>
+		<script language="javascript" type="text/javascript" src="js/p5.dom.js"></script>
+		<script language="javascript" type="text/javascript" src="js/sketch.js"></script>
+		<script src="https://cdn.ncsu.edu/brand-assets/utility-bar/ub.php?googleCustomSearchCode=[INSERT CUSTOM SEARCH CODE]&placeholder=&maxWidth=1100&color=gray&showBrick=1"></script>
+		<link href="https://cdn.ncsu.edu/brand-assets/fonts/include.css"
+			  rel="stylesheet" type="text/css" />
+		<link href="https://cdn.ncsu.edu/brand-assets/bootstrap/css/bootstrap.css"
+			  rel="stylesheet" media="screen" type="text/css" />
+		<link href="css/style.css" rel="stylesheet">
 		<style>
 			body {
 				margin: 0;
@@ -33,9 +40,6 @@
 				margin-bottom: 40px;
 			}
 
-			.quote {
-				font-size: 24px;
-			}
 			#numpad{
 				margin:10px;
 			}
@@ -60,48 +64,6 @@
 		</style>
 	</head>
 	<body>
-		<div class="container">
-			<div class="title">Enter Artwork Number:</div>
-			<div>
-				
-				<form method="get" action="art">
-					<input name="id" id="input">
-				</form>
-				
-			</div>
-			<div id="numpad">
-				<div>
-					<div class="button num">1</div>
-					<div class="button num">2</div>
-					<div class="button num">3</div>
-				</div>
-				<div>
-					<div class="button num">4</div>
-					<div class="button num">5</div>
-					<div class="button num">6</div>
-				</div>
-				<div>
-					<div class="button num">7</div>
-					<div class="button num">8</div>
-					<div class="button num">9</div>
-				</div>
-				<div>
-					<div class="button" id="backspace">Bksp</div>
-					<div class="button num">0</div>
-					<div class="button" id="enter">Enter</div>
-				</div>
-			</div>
-		</div>
+
 	</body>
-	<script>
-		$('.num').click(function(){
-			$('#input').val($('#input').val() + $(this).text());
-		});
-		$('#backspace').click(function(){
-			$('#input').val($('#input').val().slice(0,$('#input').val().length - 1));
-		});
-		$('#enter').click(function(){
-			$('form').submit();
-		})
-	</script>
 </html>

@@ -27,8 +27,12 @@ class ArtworkController extends Controller {
 				//Go to show page.
 				$artID = $request->input('id');
 				$artInformation = Art::find($request->get('id'));
-				$files = scandir(public_path().'/uploads/'.$artID.'/');
-				$artInformation->files = array_diff($files, ['..','.']);
+
+                //Handle if directory does not exist.
+				if(file_exists(public_path() . '/uploads/' . $artID . '/')) {
+                    $files = scandir(public_path() . '/uploads/' . $artID . '/');
+                    $artInformation->files = array_diff($files, ['..','.']);
+                }
 
 				return view('artwork.show')->with('artInformation',$artInformation);
 			}
