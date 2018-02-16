@@ -15,7 +15,7 @@
 Route::get('/', 'ArtworkController@index')->name('homepage');
 //Limited Resource Route
 Route::resource('art', 'ArtworkController',
-                ['only' => ['index','show','create','store']]);
+                ['only' => ['index','show','create','store','edit']]);
 Auth::routes();
 
 Route::get('/admin', 'HomeController@index')->name('admin');
@@ -29,3 +29,6 @@ Route::get('/profileRoleDelete/{userID}/{roleID}','HomeController@deleteRole')->
 //Administrative Add Art Piece.
 //Allow the update of a role.
 Route::get('/createArtPiece','ArtworkController@create')->name('auth.art.create');
+Route::get('/edit','ArtworkController@list')->name('auth.art.list');
+Route::post('/edit','ArtworkController@edit')->name('auth.art.edit');
+Route::post('/update','ArtworkController@update')->name('auth.art.update');

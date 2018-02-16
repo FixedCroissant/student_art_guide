@@ -59,6 +59,9 @@
                                       <a href ="{{route('auth.art.create')}}">Add New Piece</a>
                                     </li>
                                     <li>
+                                      <a href ="{{route('auth.art.list')}}">Edit Piece</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -96,5 +99,6 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
+    @yield('scripts')
 </body>
 </html>

@@ -108,13 +108,21 @@ class ArtworkController extends Controller {
 	{
 		//Validation
 		$validatedData = $request->validate([
-			'name' => 'required',
+			'nameOfArtPiece' => 'required',
 		]);
 		$piece = new Art();
 
-		$piece->nameOfArtPiece = $request->name;
+		$piece->nameOfArtPiece = $request->nameOfArtPiece;
 		$piece->country_of_origin = $request->CountryOfOrigin;
+		$piece->submittedBy = $request->submittedBy;
 		$piece->additionalInformation = $request->artworkAdditionalInformation;
+		$piece->artist_name = $request->artist_name;
+		$piece->grad_year = $request->grad_year;
+		$piece->inspiration = $request->inspiration;
+		$piece->profession = $request->profession;
+		$piece->still_creating = $request->still_creating;
+		$piece->favorite_artist = $request->favorite_artist;
+		$piece->contact = $request->contact;
 
 		$piece->save();
 		//uploads files
@@ -138,15 +146,28 @@ class ArtworkController extends Controller {
 	{
 	}
 
+
+	public function list()
+	{
+		return view ('edit.index');
+	}
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Request $request)
 	{
-		//
+		$id = $request->input('searchInput');
+		$data['art'] = Art::find($id);
+		if(file_exists(public_path() . '/uploads/' . $id . '/')) {
+            $files = scandir(public_path() . '/uploads/' . $id . '/');
+            $data['art']->files = array_diff($files, ['..','.']);
+        }
+
+		return view('edit.edit')->with($data);
 	}
 
 	/**
@@ -155,9 +176,35 @@ class ArtworkController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request)
 	{
-		//
+		$validatedData = $request->validate([
+			'nameOfArtPiece' => 'required',
+		]);
+
+		$piece = Art::find($request->id);
+
+		$piece->nameOfArtPiece = $request->nameOfArtPiece;
+		$piece->country_of_origin = $request->CountryOfOrigin;
+		$piece->submittedBy = $request->submittedBy;
+		$piece->additionalInformation = $request->additionalInformation;
+		$piece->artist_name = $request->artist_name;
+		$piece->grad_year = $request->grad_year;
+		$piece->inspiration = $request->inspiration;
+		$piece->profession = $request->profession;
+		$piece->still_creating = $request->still_creating;
+		$piece->favorite_artist = $request->favorite_artist;
+		$piece->contact = $request->contact;
+
+		$piece->save();
+		//uploads files
+		$file = $request->file('images');
+		if($file != null){
+			$name =  $file->getClientOriginalName();
+			$file->move(public_path() . '/uploads/' . $piece->id . "/" , $name);
+		}
+
+		return redirect( url('/edit') );
 	}
 
 	/**
