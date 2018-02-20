@@ -29,7 +29,7 @@ class ArtworkController extends Controller {
 				//Go to show page.
 				$artID = $request->input('id');
 				$artInformation = Art::find($request->get('id'));
-				if($artInformation->status == null) $artInformation = null;
+				if($artInformation->status != null) $artInformation = null;
 
                 //Handle if directory does not exist.
 				if(file_exists(public_path() . '/uploads/' . $artID . '/')) {
