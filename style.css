@@ -22,3 +22,16 @@
     font-size: 24px;
     color: #000000;
 }
+
+#button1 button {
+    display:none;
+}
+.center{
+    text-align:center;
+}
+
+#idNumber{
+    text-align:center;
+    font-size: 100px;
+    font-weight:bold;
+}
