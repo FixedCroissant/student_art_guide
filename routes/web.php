@@ -29,6 +29,13 @@ Route::get('/profileRoleDelete/{userID}/{roleID}','HomeController@deleteRole')->
 //Administrative Add Art Piece.
 //Allow the update of a role.
 Route::get('/createArtPiece','ArtworkController@create')->name('auth.art.create');
-Route::get('/edit','ArtworkController@list')->name('auth.art.list');
+
+
+
+Route::get('/edit','ArtworkController@edit_list')->name('auth.art.edit_list');
 Route::post('/edit','ArtworkController@edit')->name('auth.art.edit');
+Route::post('/edit/archive_img','ArtworkController@archive_img');
 Route::post('/update','ArtworkController@update')->name('auth.art.update');
+
+
+Route::post('/delete','ArtworkController@delete')->name('auth.art.delete');

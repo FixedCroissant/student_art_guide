@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 #allow for redirects.
 use Redirect;
 
@@ -27,6 +29,7 @@ class ArtworkController extends Controller {
 				//Go to show page.
 				$artID = $request->input('id');
 				$artInformation = Art::find($request->get('id'));
+				if($artInformation->status == null) $artInformation = null;
 
                 //Handle if directory does not exist.
 				if(file_exists(public_path() . '/uploads/' . $artID . '/')) {
@@ -147,7 +150,7 @@ class ArtworkController extends Controller {
 	}
 
 
-	public function list()
+	public function edit_list()
 	{
 		return view ('edit.index');
 	}
@@ -205,6 +208,34 @@ class ArtworkController extends Controller {
 		}
 
 		return redirect( url('/edit') );
+	}
+
+	public function archive_img(Request $request){
+		$id = $request->input('id');
+		$folder = substr($id,0,strpos($id,"_"));
+		$raw_filename = substr($id,strpos($id,"_") + 1);
+		$name = substr($raw_filename, 0, strrpos($raw_filename, "_"));
+		$ext = substr($raw_filename, strrpos($raw_filename, "_") + 1);
+		$filename = $name . "." . $ext;
+
+		if(!is_dir(public_path() . "/uploads/archive/" . $folder)){
+			File::makeDirectory(public_path() . "/uploads/archive/" . $folder,0777,true);
+		}
+
+		File::move(public_path() . "/uploads/" . $folder . "/" . $filename, public_path() . "/uploads/archive/" . $folder . "/" . $filename);
+
+		return $filename;
+	}
+
+	public function delete(Request $request){
+		$id = $request->input('id');
+
+		$piece = Art::find($id);
+		$piece->status = ($piece->status == "archived") ? null : "archived";
+		$piece->save();
+
+		// return redirect()->action('ArtworkController@edit',['id' => $id]);
+		return redirect('/edit');
 	}
 
 	/**

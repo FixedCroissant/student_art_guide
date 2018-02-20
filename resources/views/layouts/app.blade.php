@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -59,7 +60,7 @@
                                       <a href ="{{route('auth.art.create')}}">Add New Piece</a>
                                     </li>
                                     <li>
-                                      <a href ="{{route('auth.art.list')}}">Edit Piece</a>
+                                      <a href ="{{route('auth.art.edit_list')}}">Edit Piece</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
@@ -82,11 +83,11 @@
         <!--Error Messages-->
         <div class="row">
                         <div class="col-md-6 col-md-offset-3">
-                          @foreach (['danger', 'warning', 'success', 'info'] as $key)
-                                               @if(Session::has($key))
-                                                   <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
-                                               @endif
-                           @endforeach
+                            @foreach (['danger', 'warning', 'success', 'info'] as $key)
+                               @if(Session::has($key))
+                                   <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
+                               @endif
+                            @endforeach
 
                         </div>
         </div>
@@ -98,7 +99,9 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     @yield('scripts')
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>
