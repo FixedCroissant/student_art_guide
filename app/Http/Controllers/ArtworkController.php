@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 #allow for redirects.
 use Redirect;
 
@@ -27,6 +29,7 @@ class ArtworkController extends Controller {
 				//Go to show page.
 				$artID = $request->input('id');
 				$artInformation = Art::find($request->get('id'));
+				if($artInformation->status != null) $artInformation = null;
 
                 //Handle if directory does not exist.
 				if(file_exists(public_path() . '/uploads/' . $artID . '/')) {
@@ -108,13 +111,21 @@ class ArtworkController extends Controller {
 	{
 		//Validation
 		$validatedData = $request->validate([
-			'name' => 'required',
+			'nameOfArtPiece' => 'required',
 		]);
 		$piece = new Art();
 
-		$piece->nameOfArtPiece = $request->name;
+		$piece->nameOfArtPiece = $request->nameOfArtPiece;
 		$piece->country_of_origin = $request->CountryOfOrigin;
+		$piece->submittedBy = $request->submittedBy;
 		$piece->additionalInformation = $request->artworkAdditionalInformation;
+		$piece->artist_name = $request->artist_name;
+		$piece->grad_year = $request->grad_year;
+		$piece->inspiration = $request->inspiration;
+		$piece->profession = $request->profession;
+		$piece->still_creating = $request->still_creating;
+		$piece->favorite_artist = $request->favorite_artist;
+		$piece->contact = $request->contact;
 
 		$piece->save();
 		//uploads files
@@ -138,15 +149,28 @@ class ArtworkController extends Controller {
 	{
 	}
 
+
+	public function edit_list()
+	{
+		return view ('edit.index');
+	}
+
 	/**
 	 * Show the form for editing the specified resource.
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function edit(Request $request)
 	{
-		//
+		$id = $request->input('searchInput');
+		$data['art'] = Art::find($id);
+		if(file_exists(public_path() . '/uploads/' . $id . '/')) {
+            $files = scandir(public_path() . '/uploads/' . $id . '/');
+            $data['art']->files = array_diff($files, ['..','.']);
+        }
+
+		return view('edit.edit')->with($data);
 	}
 
 	/**
@@ -155,9 +179,63 @@ class ArtworkController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update(Request $request)
 	{
-		//
+		$validatedData = $request->validate([
+			'nameOfArtPiece' => 'required',
+		]);
+
+		$piece = Art::find($request->id);
+
+		$piece->nameOfArtPiece = $request->nameOfArtPiece;
+		$piece->country_of_origin = $request->CountryOfOrigin;
+		$piece->submittedBy = $request->submittedBy;
+		$piece->additionalInformation = $request->additionalInformation;
+		$piece->artist_name = $request->artist_name;
+		$piece->grad_year = $request->grad_year;
+		$piece->inspiration = $request->inspiration;
+		$piece->profession = $request->profession;
+		$piece->still_creating = $request->still_creating;
+		$piece->favorite_artist = $request->favorite_artist;
+		$piece->contact = $request->contact;
+
+		$piece->save();
+		//uploads files
+		$file = $request->file('images');
+		if($file != null){
+			$name =  $file->getClientOriginalName();
+			$file->move(public_path() . '/uploads/' . $piece->id . "/" , $name);
+		}
+
+		return redirect( url('/edit') );
+	}
+
+	public function archive_img(Request $request){
+		$id = $request->input('id');
+		$folder = substr($id,0,strpos($id,"_"));
+		$raw_filename = substr($id,strpos($id,"_") + 1);
+		$name = substr($raw_filename, 0, strrpos($raw_filename, "_"));
+		$ext = substr($raw_filename, strrpos($raw_filename, "_") + 1);
+		$filename = $name . "." . $ext;
+
+		if(!is_dir(public_path() . "/uploads/archive/" . $folder)){
+			File::makeDirectory(public_path() . "/uploads/archive/" . $folder,0777,true);
+		}
+
+		File::move(public_path() . "/uploads/" . $folder . "/" . $filename, public_path() . "/uploads/archive/" . $folder . "/" . $filename);
+
+		return $filename;
+	}
+
+	public function delete(Request $request){
+		$id = $request->input('id');
+
+		$piece = Art::find($id);
+		$piece->status = ($piece->status == "archived") ? null : "archived";
+		$piece->save();
+
+		// return redirect()->action('ArtworkController@edit',['id' => $id]);
+		return redirect('/edit');
 	}
 
 	/**
