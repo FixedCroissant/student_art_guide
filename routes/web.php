@@ -39,3 +39,6 @@ Route::post('/update','ArtworkController@update')->name('auth.art.update');
 
 
 Route::post('/delete','ArtworkController@delete')->name('auth.art.delete');
+
+//Pull random image.
+Route::get('/artworkImage/{fileID}','ArtworkController@pullImage')->name('auth.art.pullImage');
