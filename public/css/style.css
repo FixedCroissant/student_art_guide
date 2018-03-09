@@ -1,0 +1,40 @@
+.buttons {
+    color:#FFFFFF;
+    border-color:#4156A1;
+    background-color:#4156A1;
+    border-width: 15px;
+    border-radius: 5px;
+    font-family: GlyphaRoman;
+    font-size: 24px;
+    padding: 25px;
+}
+
+#submit {
+    color: #000000;
+    border-color: darkseagreen;
+    background-color:beige;
+    border-radius: 5px;
+    font-family: cursive;
+}
+
+#header {
+    font-family: GlyphaRoman;
+    font-size: 24px;
+    color: #000000;
+}
+
+#button1 button {
+    display:none;
+}
+
+.center{
+    text-align:center;
+}
+
+#idNumber{
+    text-align:center;
+    font-size: 100px;
+    font-weight:bold;
+
+
+}

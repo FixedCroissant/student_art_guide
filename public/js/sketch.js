@@ -84,7 +84,7 @@ function setup() {
         button[i].mousePressed(changeNum);
         button[i].class('buttons');
         button[i].id('button'+i);
-        button[i].style('display: table; margin:0 auto;');
+        button[i].style('display: table; margin:0');
 
         button[i].value = i;
         //add class
@@ -93,6 +93,7 @@ function setup() {
         //new super div
         div4 = createElement('div');
         div4.class('col-md-4 col-sm-4');
+       // div4.style('size:100px')
 
 
         if (i==10){
@@ -207,7 +208,7 @@ function changeNum() {
     if(enteredNum.length < 4) {
         // enteredNum = enteredNum + this.value;
         enteredNum = enteredNum + this.value;
-        $('#idNumber').text(enteredNum);
+       $('#idNumber').text(enteredNum);
     }
 }
 

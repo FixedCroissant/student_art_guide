@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 #allow for redirects.
 use Redirect;
+use SplFileInfo;
 
 use App\Art;
 
@@ -249,4 +250,20 @@ class ArtworkController extends Controller {
 		//
 	}
 
+	/**
+     * Pull random image from the database.
+     * @id unique artwork id.
+     */
+	public function pullImage($id,Request $request){
+        //Load a directory.
+	    $files = File::files(public_path('/uploads/'.$id));
+	    //Keep list.
+	    $fileList = array();
+	    foreach($files as $myPath)
+        {
+            $fileList[] = pathinfo($myPath);
+        }
+        $URL =  'uploads/'.$id."/".$fileList[0]['basename'];
+        return $URL;
+	}
 }
