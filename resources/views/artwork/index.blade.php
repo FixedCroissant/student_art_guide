@@ -38,6 +38,7 @@
 		.button, #input{
 			border:2px solid #000000;
 			color: #000000;
+			background-color: rgba(255,255,255,0.5);
 			border-radius: 5px;
 			height: 2em;
 			display:inline-block;
