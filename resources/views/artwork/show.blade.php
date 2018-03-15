@@ -35,10 +35,10 @@
 										</tr>
 										<tr>
 											<td>
-												Artist Name:
+													Submitted By:
 											</td>
 											<td>
-												{{$artInformation->artist_name}}
+													{{$artInformation->submittedBy}}
 											</td>
 										</tr>
 										<tr>
@@ -103,14 +103,6 @@
 											</td>
 											<td>
 												{{$artInformation->country_of_origin}}
-											</td>
-										</tr>
-										<tr>
-											<td>
-												Submitted By:
-											</td>
-											<td>
-												{{$artInformation->submittedBy}}
 											</td>
 										</tr>
 										<tr>
