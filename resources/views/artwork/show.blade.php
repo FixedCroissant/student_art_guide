@@ -94,7 +94,7 @@
 												Date Submitted:
 											</td>
 											<td>
-												{{$artInformation->created_at}}
+												{{$artInformation->created_at->format('m-d-Y')}}
 											</td>
 									    </tr>
 										<tr>
