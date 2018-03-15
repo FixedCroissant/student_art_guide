@@ -27,12 +27,76 @@
 										@endif
 										<tr>
 											<td>
-												Name:
+											Artwork	Name:
 											</td>
 											<td>
 												{{$artInformation->nameOfArtPiece}}
 											</td>
 										</tr>
+										<tr>
+											<td>
+												Artist Name:
+											</td>
+											<td>
+												{{$artInformation->artist_name}}
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Artist Graduation Year:
+											</td>
+											<td>
+												{{$artInformation->grad_year}}
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Artist's Inspiration:
+											</td>
+											<td>
+												{{$artInformation->inspiration}}
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Artist's Current Profession:
+											</td>
+											<td>
+												{{$artInformation->profession}}
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Still creating artwork:
+											</td>
+											<td>
+												{{$artInformation->still_creating}}
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Favorite Artist:
+											</td>
+											<td>
+												{{$artInformation->favorite_artist}}
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Contact:
+											</td>
+											<td>
+												{{$artInformation->contact}}
+											</td>
+										</tr>
+										<tr>
+											<td>
+												Date Submitted:
+											</td>
+											<td>
+												{{$artInformation->created_at}}
+											</td>
+									    </tr>
 										<tr>
 											<td>
 												Country of Origin:
@@ -43,10 +107,10 @@
 										</tr>
 										<tr>
 											<td>
-												Date Submitted:
+												Submitted By:
 											</td>
 											<td>
-												{{$artInformation->created_at}}
+												{{$artInformation->submittedBy}}
 											</td>
 										</tr>
 										<tr>
