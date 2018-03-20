@@ -8,7 +8,7 @@
                 <div class="panel-heading">Login</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                    <form style="display:none; " class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -61,14 +61,11 @@
                             </div>
                         </div>
                     </form>
-
-
-
                     <!--Login Via Shibboleth-->
                     <div class="form-group">
-                        <div class="col-md-6 col-md-offset-4">
+                        <div class="col-md-8 col-md-offset-2">
                             <div class="#">
-                                <a href="{{Request::root()}}/auth/shibboleth">Login Via NC State Shibboleth</a>
+                                <h3><a href="{{Request::root()}}/auth/shibboleth">Login Via NC State Shibboleth</a></h3>
                             </div>
                         </div>
                     </div>
