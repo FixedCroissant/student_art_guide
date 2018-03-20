@@ -11,12 +11,24 @@
 |
 */
 
+//Start Auth Routes
+//Override Logout Method.
+Route::post('logout','Auth\LoginController@logout')->name('logout');
+//Override Login Method
+Route::get('login','Auth\LoginController@getLogin')->name('login');
+//Override Authentication method
+Route::post('authenticate','Auth\LoginController@authenticate')->name('authenticate');
+//Override Register Method
+Route::get('register','Auth\LoginController@getRegister')->name('register');
+//Request password
+Route::post('passwordRequest','Auth\LoginController@passwordRequest')->name('password.request');
+//End Auth Routes.
+
 //Initial homepage route. [named]
 Route::get('/', 'ArtworkController@index')->name('homepage');
 //Limited Resource Route
 Route::resource('art', 'ArtworkController',
                 ['only' => ['index','show','create','store','edit']]);
-Auth::routes();
 
 Route::get('/admin', 'HomeController@index')->name('admin');
 //Edit User Profile, which will allow for Chaning the Role of the individual.
