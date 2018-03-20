@@ -61,6 +61,18 @@
                             </div>
                         </div>
                     </form>
+
+
+
+                    <!--Login Via Shibboleth-->
+                    <div class="form-group">
+                        <div class="col-md-6 col-md-offset-4">
+                            <div class="#">
+                                <a href="{{Request::root()}}/auth/shibboleth">Login Via NC State Shibboleth</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Login Via Shibboleth-->
                 </div>
             </div>
         </div>

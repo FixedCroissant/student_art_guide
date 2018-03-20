@@ -12,7 +12,6 @@
     </div>
 
     <div class="v-spacer"></div>
-
     <form id="editPiece" method="POST" action="{{ route('auth.art.update') }}" accept-charset="UTF-8" enctype="multipart/form-data" class="form form-horizontal">
 
         {{ csrf_field() }}
@@ -36,29 +35,37 @@
             </div>
         </div>
 
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h4>Required elements are identified by <span style="color: red; font-weight:bold; font-size:large">*</span></h4>
+            </div>
+        </div>
+
         <div class="form-group">
-            <label for="nameOfArtPiece" class="control-label col-md-2">Name of Art Piece:</label>
+            <label for="nameOfArtPiece" class="control-label col-md-2">Name of Art Piece: <span style="color: red; font-weight:bold; font-size:large">*</span></label>
             <div class="col-md-10">
                 <input name="nameOfArtPiece" id="nameOfArtPiece" class="form-control" value="{{ $art->nameOfArtPiece }}" required>
             </div>
         </div>
 
         <div class="form-group">
-            <label for="submittedBy" class="control-label col-md-2">Submitted By:</label>
+            <label for="submittedBy" class="control-label col-md-2">Submitted By: <span style="color: red; font-weight:bold; font-size:large">*</span></label>
             <div class="col-md-10">
-                <input name="submittedBy" id="submittedBy" class="form-control" value="{{ $art->submittedBy }}">
+                <input name="submittedBy" id="submittedBy" class="form-control" value="{{ $art->submittedBy }}" >
             </div>
         </div>
 
         <div class="form-group">
-            <label for="grad_year" class="control-label col-md-2">Year Graduated:</label>
+            <label for="grad_year" class="control-label col-md-2">Year Graduated: <span style="color: red; font-weight:bold; font-size:large">*</span></label>
             <div class="col-md-10">
-                <input name="grad_year" id="grad_year" class="form-control" value="{{ $art->grad_year }}">
+                <input name="grad_year" id="grad_year" class="form-control" value="{{ $art->grad_year }}" >
             </div>
         </div>
 
         <div class="form-group">
-            <label for="CountryOfOrigin" class="control-label col-md-2">Country of Origin:</label>
+            <label for="CountryOfOrigin" class="control-label col-md-2">Country of Origin: <span style="color: red; font-weight:bold; font-size:large">*</span></label>
             <div class="col-md-10">
                 {!! country_dropdown('CountryOfOrigin','form-control', $art->country_of_origin) !!}
             </div>

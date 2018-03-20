@@ -13,7 +13,7 @@
                         {{ csrf_field() }}
                         <label for="searchInput">Enter the Artwork number:</label>
                             <input id="searchInput" name="searchInput" class="form-control">
-                            <input type="submit" class="form-control">
+                            <input type="submit" value="Edit Piece" class="form-control">
                     </form>
                 </div>
             </div>

@@ -110,10 +110,15 @@ class ArtworkController extends Controller {
 	 */
 	public function store(Request $request)
 	{
-		//Validation
+		//Validate our data
 		$validatedData = $request->validate([
 			'nameOfArtPiece' => 'required',
+            'submittedBy' => 'required',
+            'grad_year' => 'required',
+            'country_of_origin' => 'required',
 		]);
+
+
 		$piece = new Art();
 
 		$piece->nameOfArtPiece = $request->nameOfArtPiece;
@@ -131,13 +136,15 @@ class ArtworkController extends Controller {
 		$piece->save();
 		//uploads files
 		$file = $request->file('images');
+		//If No image.
 		if($file != null){
 			$name =  $file->getClientOriginalName();
 			$file->move(public_path() . '/uploads/' . $piece->id . "/" , $name);
 		}
 
-	 	//The Artwork is valid
-		return redirect('/');
+        //The Artwork is valid
+		return redirect()->back()->with('message','New Artwork Successfully added!');
+
 	}
 
 	/**
@@ -182,33 +189,36 @@ class ArtworkController extends Controller {
 	 */
 	public function update(Request $request)
 	{
+	    //Validate our data.
 		$validatedData = $request->validate([
 			'nameOfArtPiece' => 'required',
+            'submittedBy' => 'required',
+            'grad_year' => 'required',
+            'CountryOfOrigin' => 'required',
 		]);
+            $piece = Art::find($request->id);
 
-		$piece = Art::find($request->id);
+            $piece->nameOfArtPiece = $request->nameOfArtPiece;
+            $piece->country_of_origin = $request->CountryOfOrigin;
+            $piece->submittedBy = $request->submittedBy;
+            $piece->additionalInformation = $request->additionalInformation;
+            $piece->artist_name = $request->artist_name;
+            $piece->grad_year = $request->grad_year;
+            $piece->inspiration = $request->inspiration;
+            $piece->profession = $request->profession;
+            $piece->still_creating = $request->still_creating;
+            $piece->favorite_artist = $request->favorite_artist;
+            $piece->contact = $request->contact;
 
-		$piece->nameOfArtPiece = $request->nameOfArtPiece;
-		$piece->country_of_origin = $request->CountryOfOrigin;
-		$piece->submittedBy = $request->submittedBy;
-		$piece->additionalInformation = $request->additionalInformation;
-		$piece->artist_name = $request->artist_name;
-		$piece->grad_year = $request->grad_year;
-		$piece->inspiration = $request->inspiration;
-		$piece->profession = $request->profession;
-		$piece->still_creating = $request->still_creating;
-		$piece->favorite_artist = $request->favorite_artist;
-		$piece->contact = $request->contact;
-
-		$piece->save();
-		//uploads files
-		$file = $request->file('images');
-		if($file != null){
-			$name =  $file->getClientOriginalName();
-			$file->move(public_path() . '/uploads/' . $piece->id . "/" , $name);
-		}
-
-		return redirect( url('/edit') );
+            $piece->save();
+            //uploads files
+            $file = $request->file('images');
+            if ($file != null) {
+                $name = $file->getClientOriginalName();
+                $file->move(public_path() . '/uploads/' . $piece->id . "/", $name);
+            }
+        //The Artwork is valid
+        return redirect()->back()->with('message','New Artwork Successfully updated!');
 	}
 
 	public function archive_img(Request $request){

@@ -80,7 +80,7 @@
                 </div>
             </div>
         </nav>
-        <!--Error Messages-->
+        <!--Warning Session Messages-->
         <div class="row">
                         <div class="col-md-6 col-md-offset-3">
                             @foreach (['danger', 'warning', 'success', 'info'] as $key)
@@ -88,9 +88,17 @@
                                    <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
                                @endif
                             @endforeach
-
                         </div>
         </div>
+        <!--Validation Error Messages-->
+        @if($errors->any())
+            <div class="alert alert-danger">
+                @foreach ($errors->all() as $error)
+                    {!! $error !!}<br/>
+                @endforeach
+            </div>
+        @endif
+        <!--End Validation Error Messages-->
         <div class="container">
 
         @yield('content')
@@ -102,6 +110,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     @yield('scripts')
-    <script src="{{ asset('js/app.js') }}"></script>
+
 </body>
 </html>

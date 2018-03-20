@@ -42,3 +42,10 @@ Route::post('/delete','ArtworkController@delete')->name('auth.art.delete');
 
 //Pull random image.
 Route::get('/artworkImage/{fileID}','ArtworkController@pullImage')->name('auth.art.pullImage');
+
+/*
+ |
+ This route requires the person be logged in via Shibboleth
+ |
+ */
+ Route::get('/auth/shibboleth','Auth\LoginController@shibbolethLogin')->name('auth.shibboleth')->middleware('auth.shib');
