@@ -15,6 +15,10 @@
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
 </head>
 <body>
+<!-- Scripts -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+@yield('scripts')
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
@@ -57,10 +61,7 @@
                                       <a href ="{{route('profile')}}">Edit Profile</a>
                                     </li>
                                     <li>
-                                      <a href ="{{route('auth.art.create')}}">Add New Piece</a>
-                                    </li>
-                                    <li>
-                                      <a href ="{{route('auth.art.edit_list')}}">Edit Piece</a>
+                                        <a href ="{{route('auth.art.index')}}">Manage Art Collection</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('logout') }}"
@@ -80,36 +81,30 @@
                 </div>
             </div>
         </nav>
-        <!--Warning Session Messages-->
-        <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
-                            @foreach (['danger', 'warning', 'success', 'info'] as $key)
-                               @if(Session::has($key))
-                                   <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
-                               @endif
-                            @endforeach
-                        </div>
-        </div>
-        <!--Validation Error Messages-->
-        @if($errors->any())
-            <div class="alert alert-danger">
-                @foreach ($errors->all() as $error)
-                    {!! $error !!}<br/>
-                @endforeach
-            </div>
-        @endif
-        <!--End Validation Error Messages-->
         <div class="container">
+            <!--Warning Session Messages-->
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3">
+                    @foreach (['danger', 'warning', 'success', 'info'] as $key)
+                        @if(Session::has($key))
+                            <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
+                        @endif
+                    @endforeach
+                </div>
+            </div>
+            <!--Validation Error Messages-->
+            @if($errors->any())
+                <div class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        {!! $error !!}<br/>
+                    @endforeach
+                </div>
+            @endif
+        <!--End Validation Error Messages-->
 
         @yield('content')
 
         </div>
     </div>
-
-    <!-- Scripts -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    @yield('scripts')
-
 </body>
 </html>

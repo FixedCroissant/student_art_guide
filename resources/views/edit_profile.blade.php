@@ -38,7 +38,7 @@
                                     <ul>
                                       @foreach($user->roles as $myRole)
                                         <li>
-                                              {{$myRole->name}} | {{link_to_route('role.remove','Remove',[$myRole->users->first()->id,$myRole->id])}}
+                                              {{$myRole->name}} | {{link_to_route('role.remove','Remove',[$user->id,$myRole->id])}}
                                         </li>
                                         @endforeach
                                     </ul>
@@ -48,12 +48,14 @@
                             </tr>
                             <tr>
                             <td>
+                            @if($user->hasRole('admin'))
                               <span style="font-size:large;">Add Role:</span>
                               {!! Form::open(['route' => 'profileUpdateRole']) !!}
                               {!! Form::select('role', $roles); !!}
                               {!! Form::hidden('user_id',$user->id)!!}
                               {!! Form::submit('Update') !!}
                               {!! Form::close()!!}
+                            @endif
                             </td>
                           </tr>
                         </tbody>

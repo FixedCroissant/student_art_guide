@@ -7,3 +7,12 @@
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+.bold{
+  font-weight:bold;
+}
+.important-field{
+  background-color:yellow;
+  border:1px solid black;
+  padding: 5px;
+}

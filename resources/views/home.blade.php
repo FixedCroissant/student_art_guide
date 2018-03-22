@@ -14,7 +14,10 @@
                         </div>
                     @endif
 
-                    You are logged in!
+                    You are logged in! <br/>
+                    <br/>
+
+                    Additional functions are available from the top menu.
                 </div>
             </div>
         </div>

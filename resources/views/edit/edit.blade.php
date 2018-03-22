@@ -12,6 +12,15 @@
     </div>
 
     <div class="v-spacer"></div>
+    @if(is_null($art->files))
+        <div class="row">
+            <div class="col-md-4">
+                {!! Form::open(['route' => ['art.destroy', $art->id],'method'=>'DELETE'])!!}
+                {!! Form::submit('Delete Artwork',['class'=>'btn btn-danger']) !!}
+                {!! Form::close() !!}
+            </div>
+        </div>
+    @endif
     <form id="editPiece" method="POST" action="{{ route('auth.art.update') }}" accept-charset="UTF-8" enctype="multipart/form-data" class="form form-horizontal">
 
         {{ csrf_field() }}
@@ -21,6 +30,13 @@
             <label for="images" class="control-label col-md-2">Image</label>
             <div class="col-md-10">
                 <table class="table table-hover" id="image-table">
+                    @if(is_null($art->files))
+                        <tr>
+                            <td colspan="2">
+                                No Image found for this art piece.
+                            </td>
+                        </tr>
+                    @else
                     @foreach( $art->files as $i => $file)
                         <tr>
                             <td>
@@ -30,6 +46,7 @@
                             <td><span id="btn_{{ $art->id . '_' . str_replace('.','_',$file) }}" class="btn btn-default delete-img-btn disabled">Delete</span></td>
                         </tr>
                     @endforeach
+                    @endif
                 </table>
                 <input name="images" id="images" type="file" accept="image/x-png,image/gif,image/jpeg">
             </div>
@@ -64,12 +81,6 @@
             </div>
         </div>
 
-        <div class="form-group">
-            <label for="CountryOfOrigin" class="control-label col-md-2">Country of Origin: <span style="color: red; font-weight:bold; font-size:large">*</span></label>
-            <div class="col-md-10">
-                {!! country_dropdown('CountryOfOrigin','form-control', $art->country_of_origin) !!}
-            </div>
-        </div>
 
         <div class="form-group">
             <label for="profession" class="control-label col-md-2">Current Profession:</label>
@@ -122,15 +133,9 @@
     <div id="archiveModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
             <div class="modal-content">
-                <!-- <div class="modal-header">
-                    <h4 class="modal-title">Archive Confirmation</h4>
-                </div> -->
                 <div class="modal-body">
                     <button class="close" data-dismiss="modal">&times;</button>
-                    <form id="deletePiece" method="POST" action="{{ route('auth.art.delete') }}" accept-charset="UTF-8" enctype="multipart/form-data" class="form">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="id" value="{{ $art->id }}">
-
+                    {!!  Form::open(['route' => ['art.archive_image', $art->id],'method'=>'POST'])!!}
                         @if($art->status == "archived")
                             <h3 class="text-center">Confirm <span class="text-danger">ACTIVATION</span> of this piece?</h3>
                         @else
@@ -139,8 +144,7 @@
                         <div class="text-center">
                             <button class="btn btn-default">Confirm</button>
                         </div>
-                    </form>
-
+                    {!! Form::close() !!}
                     <div class="text-center">
                         <button class="btn btn-default" style="margin-top:10px" data-dismiss="modal">Cancel</button>
                     </div>
@@ -153,6 +157,6 @@
 
 @section('scripts')
 
-    <script src="{{ asset('/js/edit.js') }}"
+    <script src="{{ asset('/js/edit.js') }}"></script>
 
 @endsection

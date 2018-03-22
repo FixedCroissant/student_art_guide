@@ -28,7 +28,7 @@ Route::post('passwordRequest','Auth\LoginController@passwordRequest')->name('pas
 Route::get('/', 'ArtworkController@index')->name('homepage');
 //Limited Resource Route
 Route::resource('art', 'ArtworkController',
-                ['only' => ['index','show','create','store','edit']]);
+                ['only' => ['index','show','store','edit','destroy']]);
 
 Route::get('/admin', 'HomeController@index')->name('admin');
 //Edit User Profile, which will allow for Chaning the Role of the individual.
@@ -42,15 +42,17 @@ Route::get('/profileRoleDelete/{userID}/{roleID}','HomeController@deleteRole')->
 //Allow the update of a role.
 Route::get('/createArtPiece','ArtworkController@create')->name('auth.art.create');
 
+//Allow a way of seeing a list of all the images currently in the system.
+Route::get('/auth/artwork/index','ArtworkController@authIndex')->name('auth.art.index');
+//Allow a way of seeing all the fields currently in the main table along with a way of creatingQR code.
+Route::get('/auth/artwork/indexAllFields','ArtworkController@authIndexFields')->name('auth.art.indexFields');
+
 
 
 Route::get('/edit','ArtworkController@edit_list')->name('auth.art.edit_list');
-Route::post('/edit','ArtworkController@edit')->name('auth.art.edit');
-Route::post('/edit/archive_img','ArtworkController@archive_img');
+Route::post('/edit/archive_img/{artIdNumber}','ArtworkController@archive_img')->name('art.archive_image');
 Route::post('/update','ArtworkController@update')->name('auth.art.update');
 
-
-Route::post('/delete','ArtworkController@delete')->name('auth.art.delete');
 
 //Pull random image.
 Route::get('/artworkImage/{fileID}','ArtworkController@pullImage')->name('auth.art.pullImage');

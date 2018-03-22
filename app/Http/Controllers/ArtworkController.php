@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 #allow for redirects.
 use Redirect;
+//For getting table information.
+use Schema;
 use SplFileInfo;
 
 use App\Art;
@@ -41,6 +43,59 @@ class ArtworkController extends Controller {
 				return view('artwork.show')->with('artInformation',$artInformation);
 			}
 	}
+
+    /**
+     * Administrative user -- see the list of all the artwork in the system to edit.
+     */
+    public function authIndex(Request $request){
+        //Administrative.
+        //Check roles.
+        if(!is_null($request->user())){
+            $request->user()->authorizeRoles('admin');
+        }
+        else{
+            return Redirect::to('/login');
+        }
+
+        //Get all artwork.
+        $art = Art::all();
+        //Add Image Url to collection to access later in our list.
+        $art ->map(function($art){
+
+                        //$files = scandir(public_path() . '/uploads/' . $art->id . '/');
+                        //$myIndividualArtFile = readdir($files);
+                        //$art['artImageURL']= $myIndividualArtFile;
+                        $root = \Request::root();
+                        $art['artShowURL'] = $root."/art?id=".$art->id;
+                        $art['artImageURL']= Storage::disk('publicUploads')->files($art->id);
+
+        });
+
+        return view('artwork.auth.index')->with(['art'=>$art]);
+    }
+
+    /**
+     * Administrative User - see the list of all the tables fields to review
+     * and make a QR code should they ever want to do this.
+     */
+    public function authIndexFields(Request $request){
+        //Administrative.
+        //Check roles.
+        if(!is_null($request->user())){
+            $request->user()->authorizeRoles('admin');
+        }
+        else{
+            return Redirect::to('/login');
+        }
+
+
+        //Get all table fields from the artwork table.
+        $artworkFields = $this->getAllColumnNames("artwork");
+        //Get all items in the database.
+        $allArt = Art::all();
+
+        return view('artwork.auth.indexFields')->with(['fields'=>$artworkFields,'art'=>$allArt]);
+    }
 
 	/**
 	 * Show the form for creating a new resource.
@@ -115,7 +170,6 @@ class ArtworkController extends Controller {
 			'nameOfArtPiece' => 'required',
             'submittedBy' => 'required',
             'grad_year' => 'required',
-            'country_of_origin' => 'required',
 		]);
 
 
@@ -169,16 +223,25 @@ class ArtworkController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit(Request $request)
+	public function edit(Request $request,$id)
 	{
-		$id = $request->input('searchInput');
-		$data['art'] = Art::find($id);
-		if(file_exists(public_path() . '/uploads/' . $id . '/')) {
-            $files = scandir(public_path() . '/uploads/' . $id . '/');
-            $data['art']->files = array_diff($files, ['..','.']);
+        //Check roles.
+        if(!is_null($request->user())){
+                            $request->user()->authorizeRoles('admin');
+                            //Strictly lookup ID based on the RESTful URL.
+                            //$id = $request->input('searchInput');
+                            $data['art'] = Art::find($id);
+                            if(file_exists(public_path() . '/uploads/' . $id . '/')) {
+                                $files = scandir(public_path() . '/uploads/' . $id . '/');
+                                $data['art']->files = array_diff($files, ['..','.']);
+                            }
+
+            return view('edit.edit')->with($data);
+        }
+        else{
+            return Redirect::to('/login');
         }
 
-		return view('edit.edit')->with($data);
 	}
 
 	/**
@@ -194,7 +257,6 @@ class ArtworkController extends Controller {
 			'nameOfArtPiece' => 'required',
             'submittedBy' => 'required',
             'grad_year' => 'required',
-            'CountryOfOrigin' => 'required',
 		]);
             $piece = Art::find($request->id);
 
@@ -221,33 +283,40 @@ class ArtworkController extends Controller {
         return redirect()->back()->with('message','New Artwork Successfully updated!');
 	}
 
-	public function archive_img(Request $request){
-		$id = $request->input('id');
-		$folder = substr($id,0,strpos($id,"_"));
-		$raw_filename = substr($id,strpos($id,"_") + 1);
-		$name = substr($raw_filename, 0, strrpos($raw_filename, "_"));
-		$ext = substr($raw_filename, strrpos($raw_filename, "_") + 1);
-		$filename = $name . "." . $ext;
+    /**
+     * Archive an image and update the database's table status field.
+     * @return string
+     */
 
-		if(!is_dir(public_path() . "/uploads/archive/" . $folder)){
-			File::makeDirectory(public_path() . "/uploads/archive/" . $folder,0777,true);
+	public function archive_img($id){
+	    //$folder = substr($id,0,strpos($id,"_"));
+
+        $folder = public_path('/uploads/'.$id);
+        $name = File::allFiles($folder);
+        //Only get first item.
+        $uploadedPictureInformation = $name[0];
+        //To access to getters, ->getPathname(), etc.
+        $filename = $uploadedPictureInformation->getFileName();
+        //Get Original Path.
+        $originalFile = $uploadedPictureInformation->getPathName();
+        //Create new path.
+        $newPath = $folder = public_path('/uploads/archive/'.$id);
+
+        //Check if directory exists.
+		if(!is_dir($newPath)){
+			                    File::makeDirectory($newPath,0777,true);
 		}
+        //Move original file with the path and file name; to the new folder.
+        File::move($originalFile, $newPath.'/'.$filename);
 
-		File::move(public_path() . "/uploads/" . $folder . "/" . $filename, public_path() . "/uploads/archive/" . $folder . "/" . $filename);
+		//Update table.
+        $piece = Art::find($id);
+        $piece->status = "archived";
+        $piece->save();
 
-		return $filename;
+		return Redirect::to('/auth/artwork/index')->with('info','Image Artwork marked as Archived, File moved!');
 	}
 
-	public function delete(Request $request){
-		$id = $request->input('id');
-
-		$piece = Art::find($id);
-		$piece->status = ($piece->status == "archived") ? null : "archived";
-		$piece->save();
-
-		// return redirect()->action('ArtworkController@edit',['id' => $id]);
-		return redirect('/edit');
-	}
 
 	/**
 	 * Remove the specified resource from storage.
@@ -257,7 +326,10 @@ class ArtworkController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+	    $piece = Art::find($id);
+        $piece->delete();
+        // return redirect()->action('ArtworkController@edit',['id' => $id]);
+        //return redirect('/');
 	}
 
 	/**
@@ -276,4 +348,16 @@ class ArtworkController extends Controller {
         $URL =  'uploads/'.$id."/".$fileList[0]['basename'];
         return $URL;
 	}
+
+
+    /**
+     * Get a listing of all the fields within a particular table in Laravel.
+     * @param $tableName
+     * @return mixed
+     */
+
+    public function getAllColumnNames($tableName){
+        return Schema::getColumnListing($tableName);
+    }
+
 }

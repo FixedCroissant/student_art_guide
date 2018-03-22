@@ -99,14 +99,6 @@
 									    </tr>
 										<tr>
 											<td>
-												Country of Origin:
-											</td>
-											<td>
-												{{$artInformation->country_of_origin}}
-											</td>
-										</tr>
-										<tr>
-											<td>
 												Additional Information:
 											</td>
 											<td>
