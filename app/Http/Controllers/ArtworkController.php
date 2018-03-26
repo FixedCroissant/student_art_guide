@@ -176,7 +176,6 @@ class ArtworkController extends Controller {
 		$piece = new Art();
 
 		$piece->nameOfArtPiece = $request->nameOfArtPiece;
-		$piece->country_of_origin = $request->CountryOfOrigin;
 		$piece->submittedBy = $request->submittedBy;
 		$piece->additionalInformation = $request->artworkAdditionalInformation;
 		$piece->artist_name = $request->artist_name;
@@ -197,7 +196,7 @@ class ArtworkController extends Controller {
 		}
 
         //The Artwork is valid
-		return redirect()->back()->with('message','New Artwork Successfully added!');
+		return redirect()->back()->with('info','New Artwork Successfully added!');
 
 	}
 
@@ -261,7 +260,6 @@ class ArtworkController extends Controller {
             $piece = Art::find($request->id);
 
             $piece->nameOfArtPiece = $request->nameOfArtPiece;
-            $piece->country_of_origin = $request->CountryOfOrigin;
             $piece->submittedBy = $request->submittedBy;
             $piece->additionalInformation = $request->additionalInformation;
             $piece->artist_name = $request->artist_name;
@@ -280,7 +278,7 @@ class ArtworkController extends Controller {
                 $file->move(public_path() . '/uploads/' . $piece->id . "/", $name);
             }
         //The Artwork is valid
-        return redirect()->back()->with('message','New Artwork Successfully updated!');
+        return redirect()->back()->with('info','New Artwork Successfully updated!');
 	}
 
     /**

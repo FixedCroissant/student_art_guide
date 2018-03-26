@@ -85,7 +85,7 @@
             <!--Warning Session Messages-->
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    @foreach (['danger', 'warning', 'success', 'info'] as $key)
+                    @foreach (['danger', 'warning', 'success', 'info','message'] as $key)
                         @if(Session::has($key))
                             <p class="alert alert-{{ $key }}">{{ Session::get($key) }}</p>
                         @endif
