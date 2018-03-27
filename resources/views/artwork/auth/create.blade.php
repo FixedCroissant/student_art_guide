@@ -35,12 +35,6 @@
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label for="CountryOfOrigin" class="control-label col-md-2">Country of Origin: <span style="color: red; font-weight:bold; font-size:large">*</span></label>
-						<div class="col-md-10">
-							{!! country_dropdown('CountryOfOrigin','form-control') !!}
-						</div>
-					</div>
 
 					<div class="form-group">
 						<label for="profession" class="control-label col-md-2">Current Profession:</label>
