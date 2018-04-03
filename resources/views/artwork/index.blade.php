@@ -98,7 +98,7 @@
 <div class="container">
 		<div class="row">
 			<div class="col-md-12 col-xs-12 col-sm-12">
-				<img  src="{{Request::root()}}/images/ARTS_NCSTATE_red_filledin.gif">
+				<img  src="../public/images/ARTS_NCSTATE_red_filledin.gif">
 			</div>
 		</div>
 	    <div class="row">
