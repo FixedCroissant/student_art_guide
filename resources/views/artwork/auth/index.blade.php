@@ -57,7 +57,7 @@
                                             Image has been archived. <br/>
                                         @else
                                             @foreach($myArt->artImageURL as $myImageURL)
-                                                <img class="img-thumbnail" width="175" height="150" src="{{Request::root()}}/../uploads/{{$myImageURL}}"/>
+                                                <img class="img-thumbnail" width="175" height="150" src="../../../public/uploads/{{$myImageURL}}"/>
                                             @endforeach
                                         @endif
 
