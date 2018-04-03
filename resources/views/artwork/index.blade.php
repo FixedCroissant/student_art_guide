@@ -25,7 +25,7 @@
 		}
 
 		.title {
-			font-size: 50px;
+			font-size: 30px;
 			margin-bottom: 30px;
 		}
 
@@ -86,7 +86,7 @@
 	<script language="javascript" type="text/javascript" src="js/p5.dom.js"></script>
 	<script language="javascript" type="text/javascript" src="js/studentart.js"></script>
 	<!-- OK, YOU CAN MAKE CHANGES BELOW THIS LINE AGAIN -->
-	<script src="https://cdn.ncsu.edu/brand-assets/utility-bar/ub.php?googleCustomSearchCode=[INSERT CUSTOM SEARCH CODE]&placeholder=&maxWidth=1100&color=gray&showBrick=1"></script>
+	<script src="https://cdn.ncsu.edu/brand-assets/utility-bar/ub.php?googleCustomSearchCode=[INSERT CUSTOM SEARCH CODE]&placeholder=&maxWidth=1100&color=gray&showBrick=0"></script>
 	<link href="https://cdn.ncsu.edu/brand-assets/fonts/include.css"
 		  rel="stylesheet" type="text/css" />
 	<link href="https://cdn.ncsu.edu/brand-assets/bootstrap/css/bootstrap.css"
@@ -96,6 +96,22 @@
 <div id="ncstate-utility-bar"></div>
 
 <div class="container">
+		<div class="row">
+			<div class="col-md-12 col-xs-12 col-sm-12">
+				<img  src="{{Request::root()}}/images/ARTS_NCSTATE_red_filledin.gif">
+			</div>
+		</div>
+	    <div class="row">
+			&nbsp;
+		</div>
+		<div class="row">
+			&nbsp;
+		</div>
+	<div class="row">
+			<div class="col-md-12 col-xs-12 col-sm-12">
+				<h1>Student Art Collection</h1>
+			</div>
+		</div>
 	<div class="title">Enter Artwork Number:</div>
 	<div>
 		<form method="get" action="art">

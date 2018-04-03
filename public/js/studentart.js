@@ -6,7 +6,7 @@ var speed = 1;
 var ind = 0;
 var ratio = [], n;
 var carpixels,b;
-var xdiv = 2,ydiv = 6;
+var xdiv = 1,ydiv = 3;
 var c;
 var content=[];
 
