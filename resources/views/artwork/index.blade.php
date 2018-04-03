@@ -112,6 +112,9 @@
 				<h1>Student Art Collection</h1>
 			</div>
 		</div>
+	<!--Get Messages-->
+	@include('partials.message')
+	<!--End Get Messages-->
 	<div class="title">Enter Artwork Number:</div>
 	<div>
 		<form method="get" action="art">

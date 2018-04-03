@@ -32,16 +32,21 @@ class ArtworkController extends Controller {
 				//Go to show page.
 				$artID = $request->input('id');
 				$artInformation = Art::find($request->get('id'));
-				if($artInformation->status != null) $artInformation = null;
-
-                //Handle if directory does not exist.
-				if(file_exists(public_path() . '/uploads/' . $artID . '/')) {
-                    $files = scandir(public_path() . '/uploads/' . $artID . '/');
-                    $artInformation->files = array_diff($files, ['..','.']);
+				if(is_null($artInformation)){
+				    return redirect()->back()->with('message','An artwork piece is not found for this number.');
                 }
+				else {
+                    if ($artInformation->status != null) $artInformation = null;
 
-				return view('artwork.show')->with('artInformation',$artInformation);
-			}
+                    //Handle if directory does not exist.
+                    if (file_exists(public_path() . '/uploads/' . $artID . '/')) {
+                        $files = scandir(public_path() . '/uploads/' . $artID . '/');
+                        $artInformation->files = array_diff($files, ['..', '.']);
+                    }
+
+                    return view('artwork.show')->with('artInformation', $artInformation);
+                }
+            }
 	}
 
     /**

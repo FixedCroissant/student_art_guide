@@ -17,16 +17,17 @@
 										@if(!is_null($artInformation->files))
 											@foreach($artInformation->files as $image)
 												<div class="row">
-													<div class="col-md-6 col-sm-6 col-xs-12">
-														<img  class="img-responsive" src="{{asset('uploads').'/'. $artInformation->id .'/'.$image}}">
+														<div class="center-image-artsLogo">
+															<!--Add Image Per Amy-->
+															<img class="img-responsive" src="../public/images/ARTS_NCSTATE_black_outlined.gif">
 
+														</div>
+												</div>
+												<br/>
+												<div class="row">
+													<div class="center-image">
+														<img class="img-responsive" src="{{asset('uploads').'/'. $artInformation->id .'/'.$image}}">
 													</div>
-													<div class="col-md-6 col-sm-6 col-xs-12">
-														<!--Add Image Per Amy-->
-														<img class="col-xs-12 img-responsive" src="{{Request::root()}}/images/ARTS_NCSTATE_black_outlined.png">
-
-													</div>
-
 												</div>
 											@endforeach
 											@else
