@@ -8,7 +8,7 @@
                 <div class="panel-heading">Login</div>
 
                 <div class="panel-body">
-                    <form style="display:none; " class="form-horizontal" method="POST" action="{{ route('login') }}">
+                    <form style="display:none; " class="form-horizontal" method="POST" action="{{ route('authenticate') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
