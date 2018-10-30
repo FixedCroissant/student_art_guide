@@ -36,7 +36,7 @@
                     <th>
                         Action:
                     </th>
-                    <th style="display:none;">
+                    <th style="">
                         Generate QR Code
                     </th>
                     </thead>
@@ -57,7 +57,7 @@
                                             Image has been archived. <br/>
                                         @else
                                             @foreach($myArt->artImageURL as $myImageURL)
-                                                <img class="img-thumbnail" width="175" height="150" src="../../../public/uploads/{{$myImageURL}}"/>
+                                                <img class="img-thumbnail" width="175" height="150" src="../../../uploads/{{$myImageURL}}"/>
                                             @endforeach
                                         @endif
 
@@ -65,7 +65,7 @@
                                     <td>
                                         {{link_to_route('art.edit','Edit',$myArt->id)}}
                                     </td>
-                                    <td style="display:none;">
+                                    <td style="">
                                         {!! QrCode::size(100)->generate( $myArt->artShowURL) !!}
                                     </td>
                                 </tr>
